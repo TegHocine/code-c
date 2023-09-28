@@ -6,7 +6,13 @@ import { calculatePower } from "src/utils"
 const PokemonContext = createContext({})
 
 export const PokemonContextProvider = ({ children }) => {
-  const [pokemons, setPokemons] = useState()
+  const [pokemons, setPokemons] = useState({
+    data: [],
+    currentPage: 1,
+    hasNextPage: false,
+    lastPage: 1,
+    numberOfItems: 0,
+  })
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [page, setPage] = useState(1)
 
