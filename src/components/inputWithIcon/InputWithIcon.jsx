@@ -1,5 +1,3 @@
-import React from "react"
-
 export const InputWithIcon = ({ icon, className, ...props }) => {
   return (
     <div className='w-full relative'>

@@ -1,48 +1,46 @@
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
+import { usePokemon } from "src/contexts/PokemonContext"
+import { PokemonTableBodyItem } from "./PokemonTableBodyItem"
 export const PokemonTable = () => {
+  const {
+    data,
+    currentPage,
+    numberOfItems,
+    rowsPerPage,
+    handleRowsChange,
+    getNextPage,
+    getPreviousPage,
+  } = usePokemon()
+
+  const pokemons = data || []
+
+  const headers = pokemons.length ? Object.keys(pokemons?.[0]) : []
+  const startRange = rowsPerPage * (currentPage - 1) + 1
+  const endRange = Math.min(rowsPerPage * currentPage, numberOfItems)
+
   return (
     <div className='flex flex-grow flex-col overflow-y-auto scroll-smooth hide-scroll w-full gap-2'>
       <div className='flex w-full  overflow-y-auto scroll-smooth rounded-lg hide-scroll shadow-sm drop-shadow'>
-        <table className='table-fixed rounded-lg w-full'>
+        <table className='table-auto rounded-lg w-full bg-white'>
           <thead className='bg-gray-200 text-gray-500 text-center'>
             <tr>
-              <th className='p-2'>Song</th>
-              <th className='p-2'>Artist</th>
-              <th className='p-2'>Year</th>
+              {headers?.map((header) => (
+                <th
+                  className='p-2'
+                  key={header}>
+                  {header}
+                </th>
+              ))}
+              <th className='p-2'>Power</th>
             </tr>
           </thead>
-          <tbody className='text-center bg-white'>
-            <tr className='border-t border-x border-gray-100'>
-              <td className='p-2'>
-                The Sliding Mr. Bones (Next Stop, Pottersville)
-              </td>
-              <td className='p-2'>Malcolm Locyer</td>
-              <td className='p-2'>1961</td>
-            </tr>
-            <tr className='border-t border-x border-gray-100'>
-              <td className='p-2'>Witchy Woman</td>
-              <td className='p-2'>The Eagles</td>
-              <td className='p-2'>1972</td>
-            </tr>
-            <tr className='border-t border-x border-gray-100'>
-              <td className='p-2'>Shining Star</td>
-              <td className='p-2'>Earth, Wind, and Fire</td>
-              <td className='p-2'>1975</td>
-            </tr>
-            <tr className='border-t border-x border-gray-100'>
-              <td className='p-2'>
-                The Sliding Mr. Bones (Next Stop, Pottersville)
-              </td>
-              <td className='p-2'>Malcolm Locyer</td>
-              <td className='p-2'>1961</td>
-            </tr>
-            <tr className='border-t border-x border-gray-100'>
-              <td className='p-2'>
-                The Sliding Mr. Bones (Next Stop, Pottersville)
-              </td>
-              <td className='p-2'>Malcolm Locyer</td>
-              <td className='p-2'>1961</td>
-            </tr>
+          <tbody className='text-center'>
+            {pokemons?.map((pokemon) => (
+              <PokemonTableBodyItem
+                pokemon={pokemon}
+                key={pokemon.id}
+              />
+            ))}
           </tbody>
         </table>
       </div>
@@ -52,7 +50,9 @@ export const PokemonTable = () => {
           <div>
             <select
               id='cars'
-              className='outline-none border-none'>
+              className='outline-none border-none'
+              value={rowsPerPage}
+              onChange={(e) => handleRowsChange(e.target.value)}>
               <option
                 value='5'
                 className='p-1'>
@@ -72,12 +72,16 @@ export const PokemonTable = () => {
           </div>
         </div>
         <div className='flex gap-1 items-center'>
-          <p>6-10 of 10</p>
+          <p>{`${startRange}-${endRange} of ${numberOfItems}`}</p>
           <div className='flex gap-1 items-center'>
-            <button className='h-5 w-5 rounded-full hover:bg-gray-100 flex justify-center items-center'>
+            <button
+              className='h-5 w-5 rounded-full hover:bg-gray-100 flex justify-center items-center'
+              onClick={getPreviousPage}>
               <FiChevronLeft />
             </button>
-            <button className='h-5 w-5 rounded-full hover:bg-gray-100 flex justify-center items-center'>
+            <button
+              className='h-5 w-5 rounded-full hover:bg-gray-100 flex justify-center items-center'
+              onClick={getNextPage}>
               <FiChevronRight />
             </button>
           </div>
