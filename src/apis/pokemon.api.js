@@ -7,7 +7,7 @@ export const getPokemon = async ({
   threshold = 0,
 }) => {
   try {
-    const res = await fetch("public/pokemon.json")
+    const res = await fetch("/pokemon.json")
     if (!res.ok) {
       throw new Error("Network response was not ok")
     }
