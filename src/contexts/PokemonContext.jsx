@@ -40,7 +40,10 @@ export const PokemonContextProvider = ({ children }) => {
       })
   }, [rowsPerPage, page, debouncedQuery, debouncedThreshold])
 
-  const handleRowsChange = (row) => setRowsPerPage(+row)
+  const handleRowsChange = (row) => {
+    setRowsPerPage(+row)
+    setPage(1)
+  }
 
   const getNextPage = () => {
     if (pokemons?.hasNextPage) {
