@@ -1,4 +1,5 @@
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi"
+import { Empty } from "src/components/empty/Empty"
 import { usePokemon } from "src/contexts/PokemonContext"
 import { PokemonTableBodyItem } from "./PokemonTableBodyItem"
 export const PokemonTable = () => {
@@ -18,7 +19,7 @@ export const PokemonTable = () => {
   const startRange = rowsPerPage * (currentPage - 1) + 1
   const endRange = Math.min(rowsPerPage * currentPage, numberOfItems)
 
-  return (
+  return pokemons.length ? (
     <div className='flex flex-grow flex-col overflow-y-auto scroll-smooth hide-scroll w-full gap-2'>
       <div className='flex w-full  overflow-y-auto scroll-smooth rounded-lg hide-scroll shadow-sm drop-shadow'>
         <table className='table-auto rounded-lg w-full bg-white'>
@@ -88,5 +89,7 @@ export const PokemonTable = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Empty title="I couldn't find a Pokémon with that name" />
   )
 }

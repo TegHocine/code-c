@@ -1,12 +1,5 @@
+import { calculatePower } from "src/utils/index"
 export const PokemonTableBodyItem = ({ pokemon }) => {
-  const power =
-    pokemon.hp +
-    pokemon.attack +
-    pokemon.defense +
-    pokemon.special_attack +
-    pokemon.special_defense +
-    pokemon.speed
-
   return (
     <tr className='border-t border-x border-gray-100'>
       <td className='p-2'>{pokemon?.id}</td>
@@ -18,7 +11,7 @@ export const PokemonTableBodyItem = ({ pokemon }) => {
       <td className='p-2'>{pokemon?.special_attack}</td>
       <td className='p-2'>{pokemon?.special_defense}</td>
       <td className='p-2'>{pokemon?.speed}</td>
-      <td className='p-2'>{power}</td>
+      <td className='p-2'>{calculatePower(pokemon)}</td>
     </tr>
   )
 }

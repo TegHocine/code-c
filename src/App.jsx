@@ -1,6 +1,6 @@
 import { PokemonTable } from "src/components/home/pokemonTable/PokemonTable"
 import { SearchAndPowerFilter } from "src/components/home/searchAndPowerFilter/SearchAndPowerFilter"
-import { PokemonContextProvider } from "./contexts/PokemonContext"
+import { PokemonContextProvider } from "src/contexts/PokemonContext"
 
 function App() {
   return (
